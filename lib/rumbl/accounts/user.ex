@@ -8,4 +8,13 @@ defmodule Rumbl.Accounts.User do
 
     timestamps()
   end
+
+  def changeset(user, attrs) do
+    user
+    # Only allow username and name as the input. This input is also converted to the schema type
+    |> cast(attrs, [:name, :username])
+    |> validate_required([:name, :username])
+    |> validate_length(:username, min: 1, max: 20)
+  end
+
 end
